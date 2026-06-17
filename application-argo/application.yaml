@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: First-Application
+  namespace: argocd
+spec:
+  project: my-project
+  source:
+    repoURL: https://github.com/lilo452/argo-gitops.git
+    path: ./app-1/*
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
